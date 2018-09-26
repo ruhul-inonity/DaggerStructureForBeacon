@@ -7,8 +7,11 @@ import com.sslwireless.beaconappadmin.BeaconAdminApp;
 import com.sslwireless.beaconappadmin.R;
 
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
+
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,5 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
         ((BeaconAdminApp) getApplication()).getApplicationComponent().inject(this);
         ButterKnife.bind(this);
+        realm = Realm.getDefaultInstance();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
     }
 }

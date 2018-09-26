@@ -6,6 +6,9 @@ import com.sslwireless.beaconappadmin.di.component.ApplicationComponent;
 import com.sslwireless.beaconappadmin.di.component.DaggerApplicationComponent;
 import com.sslwireless.beaconappadmin.di.module.ApplicationModule;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /**
  * Created by ruhul on 9/26/18.
  */
@@ -24,6 +27,13 @@ public class BeaconAdminApp extends Application {
         super.onCreate();
         mInstance = this;
         mApplicationComponent = initDagger(this);
+
+        Realm.init(this);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
+                .name("beaconapp.realm")
+                .schemaVersion(0)
+                .build();
+        Realm.setDefaultConfiguration(realmConfig);
 
     }
 
